@@ -1,0 +1,26 @@
+{
+  "name": "pty-mcp",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.28.0",
+  "devDependencies": {
+    "@effect/language-service": "^0.67.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@effect/ai": "^0.33.2",
+    "@effect/platform": "^0.94.1",
+    "@effect/platform-node": "^0.104.0",
+    "effect": "^3.19.14"
+  }
+}

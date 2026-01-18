@@ -207,7 +207,7 @@ pty-mcp/
 ├── dist/                           # ✅ Built JavaScript (ready to run)
 ├── package.json                    # ✅ Updated with all dependencies
 ├── tsconfig.json                   # ✅ Configured for Effect
-└── mcp-pty.spec.md                # This file
+└── mcp-pty.spec.md                 # This file
 ```
 
 ### How to Use

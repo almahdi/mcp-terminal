@@ -64,6 +64,24 @@ export const PTYManagerLive = Layer.scoped(
   Effect.gen(function* () {
     const sessions = yield* Ref.make(new Map<string, PTYSession>());
 
+    // Clean up all PTY sessions when layer is disposed
+    yield* Effect.addFinalizer(() =>
+      Effect.gen(function* () {
+        const map = yield* Ref.get(sessions);
+        for (const session of map.values()) {
+          if (session.status === "running") {
+            try {
+              session.process.kill();
+            } catch {
+              // Ignore errors if already dead
+            }
+          }
+          session.buffer.clear();
+        }
+        yield* Ref.set(sessions, new Map());
+      })
+    );
+
     return {
       spawn: (opts: SpawnOptions) =>
         Effect.gen(function* () {
@@ -76,25 +94,22 @@ export const PTYManagerLive = Layer.scoped(
             (`${opts.command} ${args.join(" ")}`.trim() ||
               `Terminal ${id.slice(-4)}`);
 
-          // Create PTY process with resource management
-          const ptyProcess: IPty = yield* Effect.acquireRelease(
-            Effect.try({
-              try: () =>
-                pty.spawn(opts.command, args, {
-                  name: "xterm-256color",
-                  cols: 120,
-                  rows: 40,
-                  cwd: workdir,
-                  env,
-                }),
-              catch: (error) =>
-                new CommandExecutionError({
-                  command: opts.command,
-                  message: String(error),
-                }),
-            }),
-            (pty) => Effect.sync(() => pty.kill())
-          );
+          // Spawn PTY process directly (not using acquireRelease - we manage lifecycle manually)
+          const ptyProcess: IPty = yield* Effect.try({
+            try: () =>
+              pty.spawn(opts.command, args, {
+                name: "xterm-256color",
+                cols: 120,
+                rows: 40,
+                cwd: workdir,
+                env,
+              }),
+            catch: (error) =>
+              new CommandExecutionError({
+                command: opts.command,
+                message: String(error),
+              }),
+          });
 
           const buffer = new RingBuffer();
 
@@ -162,7 +177,7 @@ export const PTYManagerLive = Layer.scoped(
           yield* Ref.update(sessions, (map) => map.set(id, session));
 
           return toInfo(session);
-        }).pipe(Effect.scoped),
+        }),
 
       write: (id: string, data: string) =>
         Effect.gen(function* () {

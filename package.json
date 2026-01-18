@@ -10,10 +10,20 @@
     "test": "vitest",
     "type-check": "tsc --noEmit"
   },
-  "keywords": ["mcp", "pty", "terminal", "effect"],
+  "keywords": [
+    "mcp",
+    "pty",
+    "terminal",
+    "effect"
+  ],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.28.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "node-pty"
+    ]
+  },
   "devDependencies": {
     "@effect/language-service": "^0.67.0",
     "@types/node": "^20.0.0",
@@ -26,6 +36,6 @@
     "@effect/platform": "^0.94.1",
     "@effect/platform-node": "^0.104.0",
     "effect": "^3.19.14",
-    "node-pty": "^1.0.0"
+    "node-pty": "1.2.0-beta.7"
   }
 }

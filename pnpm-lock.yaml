@@ -21,8 +21,8 @@ importers:
         specifier: ^3.19.14
         version: 3.19.14
       node-pty:
-        specifier: ^1.0.0
-        version: 1.1.0
+        specifier: 1.2.0-beta.7
+        version: 1.2.0-beta.7
     devDependencies:
       '@effect/language-service':
         specifier: ^0.67.0
@@ -857,8 +857,8 @@ packages:
     resolution: {integrity: sha512-s+w+rBWnpTMwSFbaE0UXsRlg7hU4FjekKU4eyAih5T8nJuNZT1nNsskXpxmeqSK9UzkBl6UgRlnKc8hz8IEqOw==}
     hasBin: true
 
-  node-pty@1.1.0:
-    resolution: {integrity: sha512-20JqtutY6JPXTUnL0ij1uad7Qe1baT46lyolh2sSENDd4sTzKZ4nmAFkeAARDKwmlLjPx6XKRlwRUxwjOy+lUg==}
+  node-pty@1.2.0-beta.7:
+    resolution: {integrity: sha512-gHvC2HkwXDTqX931r7wBas2WISl7N26g6uOPHItA1OZmPlDwWZqTCWAjO8V3UShE9CEtd+VDawRr/0c8Uf+xiQ==}
 
   npm-run-path@5.3.0:
     resolution: {integrity: sha512-ppwTtiJZq0O/ai0z7yfudtBpWIoxM8yE6nHi1X47eFR2EWORqfbu6CnPlNsjeN683eT0qG6H/Pyf9fCcvjnnnQ==}
@@ -1717,7 +1717,7 @@ snapshots:
       detect-libc: 2.1.2
     optional: true
 
-  node-pty@1.1.0:
+  node-pty@1.2.0-beta.7:
     dependencies:
       node-addon-api: 7.1.1
 
